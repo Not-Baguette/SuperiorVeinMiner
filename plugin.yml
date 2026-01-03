@@ -1,6 +1,6 @@
 name: DeluxeVeinMiner
 main: frostcheat\deluxeveinminer\Loader
-version: 1.1.0
+version: 1.1.1
 api: 5.3.0
 author: FrostCheat
 
@@ -26,4 +26,6 @@ permissions:
   deluxeveinminer.command.setmaxblocks:
     default: op
   deluxeveinminer.command.status:
+    default: op
+  deluxeveinminer.command.toggle:
     default: op
