@@ -18,13 +18,14 @@ class Loader extends PluginBase {
     public array $blacklistBlocks = [];
     public array $whitelistedBlocks = [];
     public int $maxBlocks = 64;
+    public bool $shiftToDisable = true;
+    public bool $requireTool = true;
 
     public function onLoad(): void {
         self::setInstance($this);
     }
 
     public function onEnable(): void {
-        // Simple config version check
         $configVersion = $this->getConfig()->get("config-version", 0);
         if ($configVersion < self::CONFIG_VERSION) {
             $this->getLogger()->info("Config version outdated. Consider updating your config.yml");
@@ -44,6 +45,8 @@ class Loader extends PluginBase {
 
         // load bunch of config stuff
         $this->maxBlocks = (int) $config->get("max-blocks", 64);
+        $this->shiftToDisable = (bool) $config->get("shift-to-disable", true);
+        $this->requireTool = (bool) $config->get("require-tool", true);
 
         foreach($config->get("blacklisted-worlds", []) as $worldName) {
             $this->worlds[] = strtolower($worldName);
@@ -85,6 +88,8 @@ class Loader extends PluginBase {
         $config->set("blacklisted-worlds", $this->worlds);
         $config->set("blacklisted-ores", $this->blacklistBlocks);
         $config->set("max-blocks", $this->maxBlocks);
+        $config->set("shift-to-disable", $this->shiftToDisable);
+        $config->set("require-tool", $this->requireTool);
         
         // convert blocks back to string names for saving
         $blockNames = array_map(fn($block) => strtolower($block->getName()), $this->whitelistedBlocks);

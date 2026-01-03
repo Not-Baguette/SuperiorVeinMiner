@@ -21,13 +21,17 @@ class EventListener implements Listener {
         $player = $event->getPlayer();
         $block = $event->getBlock();
         $world = $block->getPosition()->getWorld();
+        $loader = Loader::getInstance();
 
-        // Check if world is blacklisted
-        if (in_array(strtolower($world->getFolderName()), Loader::getInstance()->worlds)) return;
+        // check if world is blacklisted
+        if (in_array(strtolower($world->getFolderName()), $loader->worlds)) return;
+        
+        // check if player is sneaking (shift) and shift-to-disable is enabled
+        if ($loader->shiftToDisable && $player->isSneaking()) return;
 
         // Check if block is blacklisted (blacklist overrides everything)
         $blockName = strtolower($block->getName());
-        foreach (Loader::getInstance()->blacklistBlocks as $blacklistedName) {
+        foreach ($loader->blacklistBlocks as $blacklistedName) {
             if ($blockName === $blacklistedName || str_contains($blockName, strtolower($blacklistedName))) {
                 return;
             }
@@ -37,6 +41,11 @@ class EventListener implements Listener {
         if (!$this->isVeinMinerBlock($block)) return;
 
         $item = $player->getInventory()->getItemInHand();
+        
+        // Check if require-tool is enabled and player has bare hands
+        if ($loader->requireTool && ($item->isNull() || $item->getTypeId() === VanillaItems::AIR()->getTypeId())) return;
+        
+        // Check if item is compatible with the block
         if (!$item instanceof Item || !$block->getBreakInfo()->isToolCompatible($item)) return;
 
         $visited = [];

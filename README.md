@@ -29,18 +29,25 @@
 - Ignores world and block blacklists.
 - Fast, recursive vein-mining logic with a configurable block limit (default: 64).
 - Easy configuration and live command-based control.
+- Java-like vein-mining experience for PocketMine-MP servers.
 
 ---
 
 ## 📜 Commands
 
-| Command                                | Description                             | Permission                             |
-| -------------------------------------- | --------------------------------------- | -------------------------------------- |
-| `/deluxeveinminer addblock <block>`    | Add a block to the block blacklist      | `deluxeveinminer.command.add.block`    |
-| `/deluxeveinminer removeblock <block>` | Remove a block from the block blacklist | `deluxeveinminer.command.remove.block` |
-| `/deluxeveinminer addworld <world>`    | Add a world to the world blacklist      | `deluxeveinminer.command.add.world`    |
-| `/deluxeveinminer removeworld <world>` | Remove a world from the world blacklist | `deluxeveinminer.command.remove.world` |
-| `/deluxeveinminer reload`              | Reload the plugin configuration         | `deluxeveinminer.command.reload`       |
+| Command                                     | Description                                    | Permission                                |
+| ------------------------------------------- | ---------------------------------------------- | ----------------------------------------- |
+| `/deluxeveinminer addblock <block>`         | Add a block to the block blacklist            | `deluxeveinminer.command.add.block`       |
+| `/deluxeveinminer removeblock <block>`      | Remove a block from the block blacklist       | `deluxeveinminer.command.remove.block`    |
+| `/deluxeveinminer addwhitelist <block>`     | Add a block to the whitelist                  | `deluxeveinminer.command.add.whitelist`   |
+| `/deluxeveinminer removewhitelist <block>`  | Remove a block from the whitelist             | `deluxeveinminer.command.remove.whitelist`|
+| `/deluxeveinminer addworld <world>`         | Add a world to the world blacklist            | `deluxeveinminer.command.add.world`       |
+| `/deluxeveinminer removeworld <world>`      | Remove a world from the world blacklist       | `deluxeveinminer.command.remove.world`    |
+| `/deluxeveinminer setmaxblocks <number>`    | Set maximum blocks per vein (1-1000)          | `deluxeveinminer.command.setmaxblocks`    |
+| `/deluxeveinminer toggle <option>`          | Toggle features (shift-disable, require-tool) | `deluxeveinminer.command.toggle`          |
+| `/deluxeveinminer status`                   | Show current plugin configuration             | `deluxeveinminer.command.status`          |
+| `/deluxeveinminer reload`                   | Reload the plugin configuration               | `deluxeveinminer.command.reload`          |
+| `/deluxeveinminer help`                     | Show all available commands                   | `deluxeveinminer.command.help`            |
 
 ---
 
@@ -62,8 +69,8 @@
 ## ⚙️ Todo
 - [x] Commands for whitelist management
 - [ ] config.yml backwards compatibility
-- [ ] Shift to stop veinmining temporarily
-- [ ] Disable veinmining with barehands
+- [x] Shift to stop veinmining temporarily
+- [x] Disable veinmining with barehands
 
 ---
 

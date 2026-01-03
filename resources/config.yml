@@ -5,6 +5,12 @@ blacklisted-worlds:
 
 max-blocks: 64
 
+# shift to temporarily stop veinmining
+shift-to-disable: true
+
+# needs a tool to veinmine (disable bare hands)
+require-tool: true
+
 whitelisted-ores:
 - "coal ore"
 - "copper ore"

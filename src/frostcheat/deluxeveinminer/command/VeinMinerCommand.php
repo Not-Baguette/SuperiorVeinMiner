@@ -12,6 +12,7 @@ use frostcheat\deluxeveinminer\command\subcommands\RemoveWhitelistBlockSubComman
 use frostcheat\deluxeveinminer\command\subcommands\RemoveWorldSubCommand;
 use frostcheat\deluxeveinminer\command\subcommands\SetMaxBlocksSubCommand;
 use frostcheat\deluxeveinminer\command\subcommands\StatusSubCommand;
+use frostcheat\deluxeveinminer\command\subcommands\ToggleSubCommand;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\plugin\Plugin;
@@ -43,6 +44,7 @@ class VeinMinerCommand extends Command {
         $this->subCommands["removeworld"] = new RemoveWorldSubCommand();
         $this->subCommands["setmaxblocks"] = new SetMaxBlocksSubCommand();
         $this->subCommands["status"] = new StatusSubCommand();
+        $this->subCommands["toggle"] = new ToggleSubCommand();
         $this->subCommands["help"] = new HelpSubCommand($this->subCommands);
     }
     
