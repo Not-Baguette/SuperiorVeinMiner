@@ -2,23 +2,39 @@
 
 namespace frostcheat\deluxeveinminer\command\subcommands;
 
-use CortexPE\Commando\BaseSubCommand;
+use frostcheat\deluxeveinminer\command\SubCommandInterface;
+use frostcheat\deluxeveinminer\command\VeinMinerCommand;
 use frostcheat\deluxeveinminer\Loader;
 use pocketmine\command\CommandSender;
 use pocketmine\utils\TextFormat;
 
-class ReloadSubCommand extends BaseSubCommand {
+class ReloadSubCommand implements SubCommandInterface {
 
-    public function __construct() {
-        parent::__construct("reload", "Reload the plugin configuration");
-        $this->setPermission("deluxeveinminer.command.reload");
+    public function getName(): string {
+        return "reload";
+    }
+    
+    public function getDescription(): string {
+        return "Reload the plugin configuration";
+    }
+    
+    public function getUsage(): string {
+        return "/deluxeveinminer reload";
+    }
+    
+    public function getPermission(): ?string {
+        return "deluxeveinminer.command.reload";
     }
 
-    public function prepare(): void {}
-
-    public function onRun(CommandSender $sender, string $aliasUsed, array $args): void {
+    public function execute(VeinMinerCommand $parent, CommandSender $sender, array $args): bool {
+        if (!$sender->hasPermission($this->getPermission())) {
+            $sender->sendMessage(TextFormat::colorize("&cYou don't have permission to use this command."));
+            return false;
+        }
+        
         Loader::getInstance()->reloadConfig();
         Loader::getInstance()->load();
         $sender->sendMessage(TextFormat::colorize("&aThe plugin configuration has been reloaded successfully."));
+        return true;
     }
 }

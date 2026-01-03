@@ -2,39 +2,68 @@
 
 namespace frostcheat\deluxeveinminer\command\subcommands;
 
-use CortexPE\Commando\BaseSubCommand;
-use frostcheat\deluxeveinminer\command\args\BlockArgument;
+use frostcheat\deluxeveinminer\command\SubCommandInterface;
+use frostcheat\deluxeveinminer\command\VeinMinerCommand;
 use frostcheat\deluxeveinminer\Loader;
 use pocketmine\command\CommandSender;
+use pocketmine\item\StringToItemParser;
 use pocketmine\utils\TextFormat;
 
-class RemoveBlockSubCommand extends BaseSubCommand {
+class RemoveBlockSubCommand implements SubCommandInterface {
 
-    public function __construct() {
-        parent::__construct("removeblock", "Remove a block from the block blacklist");
-        $this->setPermission("deluxeveinminer.command.remove.block");
+    public function getName(): string {
+        return "removeblock";
+    }
+    
+    public function getDescription(): string {
+        return "Remove a block from the block blacklist";
+    }
+    
+    public function getUsage(): string {
+        return "/deluxeveinminer removeblock <block_name>";
+    }
+    
+    public function getPermission(): ?string {
+        return "deluxeveinminer.command.remove.block";
     }
 
-    public function prepare(): void {
-        $this->registerArgument(0, new BlockArgument("block"));
-    }
+    public function execute(VeinMinerCommand $parent, CommandSender $sender, array $args): bool {
+        if (!$sender->hasPermission($this->getPermission())) {
+            $sender->sendMessage(TextFormat::colorize("&cYou don't have permission to use this command."));
+            return false;
+        }
+        
+        if (count($args) === 0) {
+            $sender->sendMessage(TextFormat::colorize("&cUsage: " . $this->getUsage()));
+            return false;
+        }
+        
+        $blockName = strtolower(implode(" ", $args));
+        
+        // try to get the block from string
+        $item = StringToItemParser::getInstance()->parse($blockName);
+        if ($item === null) {
+            $sender->sendMessage(TextFormat::colorize("&cInvalid block: $blockName"));
+            return false;
+        }
+        
+        $block = $item->getBlock();
+        $actualBlockName = strtolower($block->getName());
 
-    public function onRun(CommandSender $sender, string $aliasUsed, array $args): void {
-        $blockName = str_replace("_"," ", strtolower($args["block"]->getName()));
-
-        if (!in_array($blockName, Loader::getInstance()->blacklistBlocks)) {
+        if (!in_array($actualBlockName, Loader::getInstance()->blacklistBlocks)) {
             $sender->sendMessage(TextFormat::colorize("&cThis block is not on the blacklist."));
-            return;
+            return false;
         }
 
-        $index = array_search($blockName, Loader::getInstance()->blacklistBlocks, true);
+        $index = array_search($actualBlockName, Loader::getInstance()->blacklistBlocks, true);
         if ($index !== false) {
             unset(Loader::getInstance()->blacklistBlocks[$index]);
             Loader::getInstance()->blacklistBlocks = array_values(Loader::getInstance()->blacklistBlocks); // Reindexar el array
             Loader::getInstance()->save();
-            $sender->sendMessage(TextFormat::colorize("&aThe block &e$blockName&a has been successfully removed from the blacklist."));
+            $sender->sendMessage(TextFormat::colorize("&aThe block &e$actualBlockName&a has been successfully removed from the blacklist."));
         } else {
             $sender->sendMessage(TextFormat::colorize("&cUnexpected error: block not found in blacklist."));
         }
+        return true;
     }
 }

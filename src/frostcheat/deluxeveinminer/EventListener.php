@@ -22,12 +22,18 @@ class EventListener implements Listener {
         $block = $event->getBlock();
         $world = $block->getPosition()->getWorld();
 
-        if (in_array($world->getFolderName(), Loader::getInstance()->worlds)) return;
+        // Check if world is blacklisted
+        if (in_array(strtolower($world->getFolderName()), Loader::getInstance()->worlds)) return;
 
+        // Check if block is blacklisted (blacklist overrides everything)
+        $blockName = strtolower($block->getName());
         foreach (Loader::getInstance()->blacklistBlocks as $blacklistedName) {
-            if (str_contains(strtolower($block->getName()), strtolower($blacklistedName))) return;
+            if ($blockName === $blacklistedName || str_contains($blockName, strtolower($blacklistedName))) {
+                return;
+            }
         }
 
+        // Check if block is whitelisted for vein mining
         if (!$this->isVeinMinerBlock($block)) return;
 
         $item = $player->getInventory()->getItemInHand();
@@ -41,7 +47,7 @@ class EventListener implements Listener {
     }
 
     public function veinMine(Block $block, Item $item, Player $player, array &$visited = [], ?Vector3 $origin = null): void {
-        if (count($visited) >= (int) Loader::getInstance()->getConfig()->get("max-blocks", 64)) return;
+        if (count($visited) >= Loader::getInstance()->maxBlocks) return;
 
         $pos = $block->getPosition();
         $vec = $pos->asVector3();
