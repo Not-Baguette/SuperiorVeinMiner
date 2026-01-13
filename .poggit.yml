@@ -3,7 +3,7 @@ build-by-default: true
 branches:
 - main
 projects:
-  DeluxeVeinMiner:
+  SuperiorVeinMiner:
     path: ""
     icon: "icon.png"
     libs:
