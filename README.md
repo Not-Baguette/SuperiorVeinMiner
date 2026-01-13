@@ -1,22 +1,5 @@
-<p align="center">
-  <img src="https://img.shields.io/badge/plugin-DeluxeVeinMiner-blueviolet?style=for-the-badge">
-  <br><br>
-  <a href="https://paypal.me/FrostCheatMC?country.x=CO&locale.x=es_XC">
-    <img src="https://img.shields.io/badge/donate-paypal-ff69b4?style=for-the-badge&logo=paypal">
-  </a>
-  <a href="https://discord.gg/k8X7CG2kFv">
-    <img src="https://img.shields.io/discord/1384337463971020911?style=for-the-badge&logo=discord&logoColor=white&logoSize=12&color=blue">  
-  </a>
-  <a href="https://poggit.pmmp.io/ci/FrostCheat/DeluxeVeinMiner/DeluxeVeinMiner">
-    <img src="https://poggit.pmmp.io/ci.shield/FrostCheat/DeluxeVeinMiner/DeluxeVeinMiner?style=for-the-badge">
-  </a>
-  <a href="https://poggit.pmmp.io/p/DeluxeVeinMiner">
-    <img src="https://poggit.pmmp.io/shield.downloads/DeluxeVeinMiner?style=for-the-badge">
-  </a>
-</p>
-
-<h1 align="center">📦 DeluxeVeinMiner</h1>
-<p align="center">DeluxeVeinMiner allows players to mine entire veins of minerals or connected blocks by simply breaking a single one.</p>
+<h1 align="center">📦 SuperiorVeinMiner - A fork of DeluxeVeinMiner</h1>
+<p align="center">SuperiorVeinMiner allows players to mine entire veins of minerals or connected blocks by simply breaking a single one.</p>
 
 ---
 
@@ -60,8 +43,8 @@
 
 ## 📥 Installation
 
-1. 📦 [Download DeluxeVeinMiner](https://poggit.pmmp.io/p/DeluxeVeinMiner) from Poggit
-2. 📁 Place both `.phar` files inside your `/plugins/` directory
+1. 📦 [Download SuperiorVeinMiner](https://github.com/Not-Baguette/DeluxeVeinMiner/releases/latest) from Poggit
+2. 📁 Place the `.phar` files inside your `/plugins/` directory
 3. 🔁 Restart your server
 
 ---
@@ -83,12 +66,12 @@ You are free to fork, contribute, or suggest changes.
 
 ## ☕ Support & Donate
 
-If this plugin helped you, or you want to support future updates:
+If you would like to give your thanks:
 
-> 💖 [Donate via PayPal](https://paypal.me/FrostCheatMC?country.x=CO&locale.x=es_XC)
+> 💖 [Donate via PayPal](https://paypal.me/notnotbagu)
 
-Any support is greatly appreciated!
+Any support is greatly appreciated! Also shout out to the original creator [FrostCheat](https://github.com/FrostCheat/DeluxeVeinMiner)!
 
 ---
 
-<p align="center"><b>Made with 💙 by FrostCheatMC</b></p>
+<p align="center"><b>Made with 💙 by FrostCheatMC | Forked by 🥖 Baguette</b></p>
